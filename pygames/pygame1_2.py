@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.walk_sound = pygame.mixer.Sound('pygames/audio/step1.ogg')
         self.walk_sound.set_volume(2)
         self.jump_sound = pygame.mixer.Sound('pygames/audio/jumpland2.mp3')
-        self.jump_sound.set_volume(0.3)
+        self.jump_sound.set_volume(0.1)
     def player_input(self):
         keys = pygame.key.get_pressed()     
         if keys[pygame.K_SPACE] and self.rect.bottom >= 50:
@@ -65,8 +65,8 @@ class Obstacle(pygame.sprite.Sprite):
             character_surf2 = pygame.transform.scale(character_surf2, (70, 70))
             self.frames = [character_surf1, character_surf2]
             y_pos = 400
-            self.walk_sound2 = pygame.mixer.Sound('pygames/audio/step2.ogg')
-            self.walk_sound2.set_volume(4)
+            self.walk_sound2 = pygame.mixer.Sound('pygames/audio/stomp.flac')
+            self.walk_sound2.set_volume(20)
             self.walk_sound2.play()
         elif type == 'character2':
             character2_surf1 = pygame.image.load('pygames/graphics/char/Jump3.png').convert_alpha()
@@ -76,7 +76,7 @@ class Obstacle(pygame.sprite.Sprite):
             self.frames = [character2_surf1, character2_surf2]
             y_pos = 150
             self.walk_sound3 = pygame.mixer.Sound('pygames/audio/fly.wav')
-            self.walk_sound3.set_volume(0.5)
+            self.walk_sound3.set_volume(4)
             self.walk_sound3.play()
         self.animation_index = 0
         self.image = self.frames[self.animation_index]
@@ -137,7 +137,7 @@ clock = pygame.time.Clock() #fps
 game_active = True #game loop
 start_time = 0 #start time
 bg_music = pygame.mixer.Sound('pygames/audio/music.ogg')
-bg_music.set_volume(0.3)
+bg_music.set_volume(0.1)
 bg_music.play(loops = -1)
 lose_music = pygame.mixer.Sound('pygames/audio/you_lose.ogg')
 lose_music.set_volume(2)
@@ -201,9 +201,7 @@ while True:
         obstacle_group.draw(screen)
         obstacle_group.update()     
         game_active = collision_sprite ()
-        
-        
-        
+               
     else:
         game_over = test_font.render('Game Over', True, ('darkred'))
         game_over_rectangle = game_over.get_rect(center = (400, 50))
@@ -214,10 +212,6 @@ while True:
         player.update()
         player_gravity = 0 
         bg_music.stop()
-        
-        
-        
-        
         
         screen.fill((0, 0, 0))
         screen.blit(player_big, (player_big_rectangle))
