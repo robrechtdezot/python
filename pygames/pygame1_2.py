@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_sound.set_volume(0.1)
     def player_input(self):
         keys = pygame.key.get_pressed()     
-        if keys[pygame.K_SPACE] and self.rect.bottom >= 50:
+        if keys[pygame.K_SPACE] and self.rect.bottom >= 100:
             self.gravity = -8
             self.jump_sound.play()
     def apply_gravity(self):
@@ -90,7 +90,7 @@ class Obstacle(pygame.sprite.Sprite):
         
     def update(self):
         self.animation_state()
-        self.rect.x -= 1
+        self.rect.x -= 3
         self.destroy()
     def destroy(self):
         if self.rect.x <= -100:
@@ -100,7 +100,9 @@ def display_score():
     current_score = pygame.time.get_ticks() // 1000 - start_time // 1000 #score
     score_surf = test_font.render(f'Score: {current_score}', False, ('Red')) #score
     score_rectangle = score_surf.get_rect(center = (400, 500)) #score #update screen
-    screen.blit(score_surf, score_rectangle) #score #update screen    
+    screen.blit(score_surf, score_rectangle) #score #update screen   
+    
+    
 def obstacle_movement(obstacle_list):
     
     if obstacle_rect_list:
@@ -212,6 +214,10 @@ while True:
         player.update()
         player_gravity = 0 
         bg_music.stop()
+        
+        
+        
+        
         
         screen.fill((0, 0, 0))
         screen.blit(player_big, (player_big_rectangle))
